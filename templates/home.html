@@ -1,0 +1,72 @@
+{% extends 'base.html' %}
+{% block content %}
+  {% set items_out = signouts|selectattr('returned', 'equalto', false)|list %}
+  {% if items_out|length > 0 %}
+   <div class="container-fluid mb-7">   
+        <div class="table-responsive">
+      <table id="items-table" class="table table-striped">
+        <thead>
+          <tr>
+            <th>Name</th>
+            <th>Item</th>
+            <th>Type</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for signout in items_out %}
+            <tr>
+              <td>{{ signout.technician.name }}</td>
+              <td>{{ signout.item.name }}</td>
+              <td>{{ signout.item.item_type }}</td>
+            </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
+  {% else %}
+    <div class="container-fluid mb-7">  
+      <div class="row d-flex justify-content-center">
+        <div class="col-lg-8 col-md-10">
+          <h2 style="color: #000; font-family: Arial, sans-serif; font-size: 24p; color: white;">Welcome, {{ tech.name }}</h2>
+          <p style="color: #000; font-family: Arial, sans-serif; font-size: 18px; color: white;">There are no items signed out.</p>
+        </div>
+      </div>
+    </div>
+  {% endif %}
+<script>
+(function() {
+  $(document).ready(function() {
+    var itemsTable = $('#items-table').DataTable({
+      language: {
+        search: "Filter items:",
+        lengthMenu: "Show _MENU_ items per page",
+        info: "Showing _START_ to _END_ of _TOTAL_ items",
+        infoEmpty: "No items available",
+        infoFiltered: "(filtered from _MAX_ total items)",
+        paginate: {
+          first: "First",
+          last: "Last",
+          next: "Next",
+          previous: "Previous"
+        }
+      }
+    });
+  });
+})();
+</script>
+ {% include 'loader.html' %}
+ <script>
+   document.addEventListener('DOMContentLoaded', function () {
+     document.getElementById('loader').style.display = 'block';
+   });
+ 
+   window.addEventListener('load', function () {
+     var loader = document.getElementById('loader');
+     loader.style.transition = 'opacity 0.5s';
+     loader.style.opacity = '0';
+     setTimeout(function () {
+         loader.style.display = 'none';
+     }, 1000);
+   });
+ </script>
+  {% endblock %}  

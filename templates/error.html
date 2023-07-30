@@ -1,0 +1,33 @@
+{% extends "layout.html" %}
+
+{% block content %} 
+<style>
+    .alert {
+        position: fixed;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        z-index: 9999;
+        width: 350px;
+        box-shadow: 0px 0px 10px 2px rgba(0,0,0,0.1);
+    }   
+</style>
+<div class="alert alert-danger alert-dismissible fade show" role="alert">
+    <strong>Error!</strong> {{ error_msg }}
+    <br>  
+    <button type="button" class="btn btn-dark" data-bs-dismiss="alert" aria-label="Close" onclick=redirectToHome()>
+        <span aria-hidden="true">OK</span>
+    <span aria-hidden="true">&times;</span>
+    </button>
+</div>
+<script>
+    var alertList = document.querySelectorAll('.alert');
+    alertList.forEach(function (alert) {
+      new bootstrap.Alert(alert);
+    });
+
+    function redirectToHome() {
+      window.location.href = "/";
+    }
+</script>
+{% endblock %}

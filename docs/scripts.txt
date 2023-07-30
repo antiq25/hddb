@@ -1,0 +1,14 @@
+heroku pg:reset DATABASE
+-- this clears and deletes all of the database
+
+from app import app, db
+with app.app_context():
+ db.create_all()
+ db.session.commit()
+
+
+ from app import db
+  ** same as above **
+
+run item generator..
+

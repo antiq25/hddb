@@ -1,0 +1,107 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="container-fluid">   
+  <div id="loader" class="loader" style="display:none">Loading...</div> <!-- Loader element -->
+  <div class="table-responsive">
+    <table id="items-table" class="table table-striped">
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>Type</th>
+          <th>Action</th>
+        </tr>
+      </thead>
+    </table>
+  </div>
+
+  <script>
+    (function() {
+      $(document).ready(function() {
+        var itemsTable = $('#items-table').DataTable({
+          language: {
+            search: "Filter items:",
+            lengthMenu: "Show _MENU_ items per page",
+            info: "Showing _START_ to _END_ of _TOTAL_ items",
+            infoEmpty: "No items available",
+            infoFiltered: "(filtered from _MAX_ total items)",
+            paginate: {
+              first: "First",
+              last: "Last",
+              next: "Next",
+              previous: "Previous"
+            }
+          },
+          processing: true, // Enable the processing indicator
+        });
+
+        function refreshTable() {
+          $('#loader').show(); // Show the loader
+          $.getJSON('/get_equipment', function(data) {
+            if (Array.isArray(data)) {
+              itemsTable.clear();
+              data.forEach(function(item) {
+                var btnMarkup = '<button data-item-id="' + item.id + 
+                                '" class="btn btn-primary signout-item-btn">Sign out</button>';
+                itemsTable.row.add([
+                  item.name,
+                  item.type,
+                  btnMarkup
+                ]);
+              });
+              itemsTable.draw();
+            } else {
+              console.log(data.message);
+            }
+            $('#loader').hide(); // Hide the loader
+          });
+        }
+
+        $(document).on('click', '.signout-item-btn', function() {
+          var itemId = $(this).data('item-id');
+          var row = $(this).closest('tr');
+      
+          // Show loader
+          $('.loader').show();
+      
+          $.ajax({
+              url: '/equipment',
+              type: 'POST',
+              data: {
+                  item_id: itemId
+              },
+              success: function(response) {
+                  alert('Item signed out successfully');
+                  row.remove();
+              },
+              error: function(error) {
+                  alert('Failed to sign out item');
+              },
+              complete: function() {
+                  // Hide loader
+                  $('.loader').hide();
+              }
+          });
+      });
+
+        refreshTable();
+      });
+    })();
+  </script>
+</div>
+{% include 'loader.html' %}
+<script>
+  document.addEventListener('DOMContentLoaded', function () {
+    document.getElementById('loader').style.display = 'block';
+  });
+
+  window.addEventListener('load', function () {
+    var loader = document.getElementById('loader');
+    loader.style.transition = 'opacity 0.5s';
+    loader.style.opacity = '0';
+    setTimeout(function () {
+        loader.style.display = 'none';
+    }, 500);
+  });
+</script>
+{% endblock content %}

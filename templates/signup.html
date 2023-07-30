@@ -1,0 +1,62 @@
+
+{% extends 'layout.html' %}
+{% block content %}
+{% block css %}
+<link rel="stylesheet" href="../static/css/loginlog.css">
+{% endblock css %}
+
+<div class="center-form">
+  <form class="col-sm-6" action="/signup" method="post">
+    <div class="card">
+      <div class="card-header">Register to Poseidon v2</div>
+      <div class="card-body">
+        <div>
+          <img src="https://i.ibb.co/hRvYMY9/image.png" alt="Image Description">
+         </div>
+        <label for="name" class="form-label">Name</label>
+        <input
+          type="text"
+          class="form-control"
+          id="name"
+          name="name"
+          value=""
+          placeholder="Enter Your Email"
+          required />
+        <div class="mt-2">
+          <label for="password" class="form-label">Password</label>
+          <input
+            type="password"
+            class="form-control"
+            id="password"
+            name="password"
+            placeholder="Enter Your Password"
+            required
+          />
+          <div class="valid-feedback">Looks good!</div>
+          <div class="invalid-feedback">Please choose a username.</div>
+        </div>
+        <button type="submit" value="submit" class="btn btn-primary w-100 mt-3">
+          Login
+        </button>
+        <p class="text-center mt-3"> <a href="/login">Go to Login</a></p>
+      </div>
+    </div>
+  </form>
+</div>
+{% include 'loader.html' %}
+<script>
+  document.addEventListener('DOMContentLoaded', function () {
+    document.getElementById('loader').style.display = 'block';
+  });
+
+  window.addEventListener('load', function () {
+    var loader = document.getElementById('loader');
+    loader.style.transition = 'opacity 0.5s';
+    loader.style.opacity = '0';
+    setTimeout(function () {
+        loader.style.display = 'none';
+    }, 1000);
+  });
+</script>
+
+ {% endblock  %}

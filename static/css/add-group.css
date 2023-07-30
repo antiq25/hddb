@@ -1,0 +1,43 @@
+.container {
+    margin-top: 50px;
+  }
+  
+  .display-4 {
+    color: #007bff;
+  }
+  
+  .glass {
+    background-color: rgba(255, 255, 255, 0.1);
+    border-radius: 12px;
+    box-shadow: 0 0 16px rgba(0, 0, 0, 0.1);
+  }
+  
+  .form-label {
+    color: #fff;
+  }
+  
+  .form-control {
+    background-color: rgba(255, 255, 255, 0.1);
+    color: #fff;
+  }
+  
+  .btn-primary {
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    cursor: pointer;
+  }
+  
+  .btn-primary:hover {
+    background-color: #0069d9;
+  }
+  
+  .btn-link {
+    color: #007bff;
+    text-decoration: none;
+  }
+  
+  .btn-link:hover {
+    text-decoration: underline;
+  }
+  

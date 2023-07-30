@@ -1,0 +1,141 @@
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title></title>
+  <meta name="description" content="">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <style>
+  #loader-wrapper {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 1000;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-repeat: no-repeat;
+    backdrop-filter: blur(10px);
+    background: rgba(0, 0, 0, 0.15);
+    font-family: Arial, sans-serif;
+  }
+
+  #loader {
+    display: inline-block;
+    position: relative;
+    width: 180px;
+    height: 180px;
+    border-radius: 50%;
+    border: 6px solid transparent;
+    animation: spin 2s linear infinite;
+    z-index: 1001;
+  }
+
+  #loader:before {
+    content: "";
+    position: absolute;
+    top: 5px;
+    left: 5px;
+    right: 5px;
+    bottom: 5px;
+    border-radius: 50%;
+    border: 5px solid transparent;
+    border-bottom-color: #808080;
+    border-top-color: #808080;
+    animation: spin 3s linear infinite;
+  }
+
+  #loader:after {
+    content: "";
+    position: absolute;
+    top: 1px;
+    left: 10px;
+    right: 10px;
+    bottom: 15px;
+    border-radius: 50%;
+    border: 5px solid transparent;
+    border-top-color: #808080;
+    border-bottom-color: #808080;
+    animation: spin 1.5s linear infinite;
+  }
+
+  @keyframes spin {
+    0% {
+      transform: rotate(0deg);
+    }
+    100% {
+      transform: rotate(360deg);
+    }
+  }
+
+  #loader-wrapper .loader-section {
+    position: fixed;
+    top: 0;
+    width: 51%;
+    height: 100%;
+    z-index: 1000;
+    transform: translateX(0);
+  }
+
+  #loader-wrapper .loader-section.loader-section-left {
+    border-top-color: #808080;
+    left: 0;
+  }
+
+  #loader-wrapper .loader-section.loader-section-right {
+    right: 0;
+  }
+
+  .loaded #loader-wrapper .loader-section.loader-section-left {
+    transform: translateX(-100%);
+    transition: all 0.7s 0.3s cubic-bezier(0.645, 0.045, 0.355, 1.000);
+  }
+
+  .loaded #loader-wrapper .loader-section.loader-section-right {
+    transform: translateX(100%);
+    transition: all 0.7s 0.3s cubic-bezier(0.645, 0.045, 0.355, 1.000);
+  }
+
+  .loaded #loader {
+    opacity: 0;
+    transition: all 0.3s ease-out;
+  }
+
+  .loaded #loader-wrapper {
+    visibility: hidden;
+    transform: translateY(-100%);
+    transition: all 0.3s 1s ease-out;
+  }
+
+  .no-js #loader-wrapper {
+    display: none;
+  }
+
+  .progress {
+    border-bottom-color: #808080;
+    border: 6px solid transparent;
+    border-top-color: #808080;
+    animation: spin 1.0s linear infinite;
+  }
+
+  .loader-logo {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 80px;
+    z-index: 1001;
+  }
+  </style>    
+</head>
+<body>
+  <div id="loader-wrapper">
+    <div id="loader"></div>
+    <img src="https://i.ibb.co/SvMZJ2T/Elafon-Logo.png" alt="Elafon Logo" class="loader-logo" />
+    <div class="loader-section loader-section-left"></div>
+    <div class="loader-section loader-section-right"></div>
+  </div>
+</body>
+</html>
